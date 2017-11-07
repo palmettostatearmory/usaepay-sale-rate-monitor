@@ -116,7 +116,7 @@ $message .= "Growth Rate = " . $growthRate . "\n";
 echo $message;
 
 if($growthRate < $config['threshold']) {
-        $email = $config['emial'];
+        $email = $config['email'];
         $subject = 'SLOW ORDERS ALERT';
         $message = $message;
 
