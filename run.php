@@ -98,6 +98,8 @@ $res=$client->searchTransactions($tok,$search,$matchall,$start,$limit,$sort);
 
 $nowCt = $res->TransactionsMatched;
 
+$mostRecentOrder= end($res->Transactions);
+
 $message .= "Orders, second interval:  " . $nowCt . "\n";
 
 $nowPerMin = round(($nowCt / $interval), 1);
@@ -111,7 +113,11 @@ $message .= "per min:  " . $nowPerMin . "\n------\n";
 
 $growthRate = round(($nowPerMin / $comparePerMin), 1);
 
-$message .= "Growth Rate = " . $growthRate . "\n";
+$message .= "Growth Rate:  " . $growthRate . "\n";
+
+if ($mostRecentOrder) {
+    $message .= "Most Recent Order:  " . $mostRecentOrder->DateTime . " (" . $mostRecentOrder->Details->OrderID . ")\n";
+}
 
 echo $message;
 
