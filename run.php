@@ -121,7 +121,7 @@ if ($mostRecentOrder) {
 
 echo $message;
 
-if($growthRate < $config['threshold']) {
+if(($growthRate < $config['threshold']) || ($nowCt < 1)) {
         $email = $config['email'];
         $subject = 'SLOW ORDERS ALERT';
         $message = $message;
