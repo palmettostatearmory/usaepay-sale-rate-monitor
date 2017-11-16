@@ -8,6 +8,9 @@ return [
 	
 	'interval' => 60, // The period of time (minutes) to capture and compare
 	'threshold' => .5, // If set to .5, alert will fire if orders/min fall by less than half
-	
+
+	'recentThreshold' => 10, // minutes. If most recent order within this time, no alert.
+        'firstThreshold' => .7, // orders/min. If the first interval  is <, no alert.	
+
 	'email' => '' // Recipient of alert email
 ];

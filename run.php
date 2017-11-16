@@ -113,24 +113,29 @@ $message .= "per min:  " . $nowPerMin . "\n------\n";
 
 $growthRate = round(($nowPerMin / $comparePerMin), 1);
 
-$message .= "Growth Rate:  " . $growthRate . "\n";
+$message .= "Growth Rate:  " . $growthRate . "\n------\n";
+
+$minutesSinceMRO = round((strtotime($now) - strtotime($mostRecentOrder->DateTime)) / 60, 1);
 
 if ($mostRecentOrder) {
     $message .= "Most Recent Order:  " . $mostRecentOrder->DateTime . " (" . $mostRecentOrder->Details->OrderID . ")\n";
+    $message .= "minutes since:  " . $minutesSinceMRO . "\n";
 }
 
 echo $message;
 
-if(($growthRate < $config['threshold']) || ($nowCt < 1)) {
-        $email = $config['email'];
-        $subject = 'SLOW ORDERS ALERT';
-        $message = $message;
+if ((($growthRate < $config['threshold']) || ($nowCt < 1)) &&
+        ($minutesSinceMRO > $config['recentThreshold']) &&
+        ($comparePerMin > $config['firstThreshold'])) {
+            $email = $config['email'];
+            $subject = 'SLOW ORDERS ALERT';
+            $message = $message;
 
-        if(mail($email, $subject, $message)) {
-            echo "successfull email\n";
-        } else {
-            echo "unsuccessful email\n";
-        }
+            if(mail($email, $subject, $message)) {
+                echo "successfull email\n";
+            } else {
+                echo "unsuccessful email\n";
+            }
 }
 
 
