@@ -1,4 +1,4 @@
-# USAePay Sales Rate Monitor
+# USAePay Sales Rate Monitor/Alert
 Monitors the rate of sales in USAePay, sends email alert if rate drops.
 
 To get up and running:
